@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bash_profile: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -29,11 +29,6 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -72,25 +67,19 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# some ls aliases
+alias ls='ls -G'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# grep aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -105,6 +94,15 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ `which nvim` ];
+then
+	alias vim='nvim'
+fi
+alias spock='conda activate spock'
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -116,39 +114,37 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# add PIO modules to PYTHONPATH
-PYTHONPATH=""
-for f in `ls -d ~/my_code/main/*/`; do
-    for ff in `ls -d $f/*/`; do
-        PYTHONPATH=$ff":$PYTHONPATH"
-done
-done
-for i in `ls ~/my_code | grep -v "main" | grep -v "gpssm"`; do
-  PYTHONPATH="/home/stefanos/my_code/"$i":$PYTHONPATH"
-done
 export PYTHONPATH
-
-export PROWLER_IO_HOME="/home/stefanos/pio/"
+for i in `ls ~/code`; do
+  PYTHONPATH="$HOME/code/"$i":$PYTHONPATH"
+done
+# export PYTHONPATH
+# # add PIO modules to PYTHONPATH
+# PYTHONPATH=""
+# for f in `ls -d ~/my_code/main/*/`; do
+#     for ff in `ls -d $f/*/`; do
+#         PYTHONPATH=$ff":$PYTHONPATH"
+# done
+# done
+# for i in `ls ~/my_code | grep -v "main" | grep -v "gpssm"`; do
+#   PYTHONPATH="/home/stefanos/my_code/"$i":$PYTHONPATH"
+# done
+# export PYTHONPATH
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/stefanos/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/stefele/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/stefanos/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/stefanos/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/stefele/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/stefele/opt/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/stefanos/anaconda3/bin:$PATH"
+        export PATH="/Users/stefele/opt/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
-# add alias for pio conda env
-# alias pio='source activate pio3.7'
-alias pio='source activate pio-gpu'
-alias pio2='source activate pio2'
 
 # silence tensorflow log
 # export TF_CPP_MIN_LOG_LEVEL=3

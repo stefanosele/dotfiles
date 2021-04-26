@@ -9,7 +9,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.config/nvim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -37,9 +37,14 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'dense-analysis/ale'
-Plugin 'Valloric/YouCompleteMe'
+
+" Plugin 'neomake/neomake'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'zchee/deoplete-jedi'
+
 Plugin 'preservim/nerdtree'
 Plugin 'nvie/vim-flake8'
 
@@ -58,26 +63,34 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" link to python bin for the completion
+let g:python3_host_prog = '$HOME/opt/anaconda3/bin/python'
+
+" deoplete/jedi options
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#enable_at_startup = 1
+let g:jedi#use_tabs_not_buffers = 1
+
+imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " ale linting properties
 let g:ale_linters = {
            \   'python': ['pylint', 'mypy'],
            \}
-let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint.cfg'
-" let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint-extra-rules-for-production-code.cfg'
+let g:ale_python_pylint_options = '--max-line-length 100' " --rcfile $HOME/my_code/main/Build_System/linting/pylint.cfg'
+" " let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint-extra-rules-for-production-code.cfg'
 let g:ale_python_mypy_options = '--ignore-missing-imports'
-
-nnoremap <leader>pp :ALEToggle <bar> let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint.cfg' <bar> ALEToggle<CR>
-nnoremap <leader>pr :ALEToggle <bar> let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint-extra-rules-for-production-code.cfg' <bar> ALEToggle<CR>
+" 
+" nnoremap <leader>pp :ALEToggle <bar> let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint.cfg' <bar> ALEToggle<CR>
+" nnoremap <leader>pr :ALEToggle <bar> let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint-extra-rules-for-production-code.cfg' <bar> ALEToggle<CR>
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" YCM go to definition
-nnoremap <leader>gd    :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gc    :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>                " turn off YCM
-nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>                "turn on YCM
-let g:ycm_goto_buffer_command = 'new-tab'
+" " YCM go to definition
+" nnoremap <leader>gd    :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>gc    :YcmCompleter GoToDeclaration<CR>
+" let g:ycm_goto_buffer_command = 'new-tab'
 
 " " Nerd-tree
 " map <Leader>q :NERDTreeToggle<CR>
