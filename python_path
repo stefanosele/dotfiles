@@ -1,0 +1,18 @@
+unset PYTHONPATH
+export PYTHONPATH
+for i in `ls ~/code/src | grep -v "GPflow"`; do
+  PYTHONPATH="$HOME/code/src/$i/src:$PYTHONPATH"
+done
+PYTHONPATH="$HOME/code/src/GPflow:$PYTHONPATH"
+# export PYTHONPATH
+# # add PIO modules to PYTHONPATH
+# PYTHONPATH=""
+# for f in `ls -d ~/my_code/main/*/`; do
+#     for ff in `ls -d $f/*/`; do
+#         PYTHONPATH=$ff":$PYTHONPATH"
+# done
+# done
+# for i in `ls ~/my_code | grep -v "main" | grep -v "gpssm"`; do
+#   PYTHONPATH="/home/stefanos/my_code/"$i":$PYTHONPATH"
+# done
+# export PYTHONPATH
