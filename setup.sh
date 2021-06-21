@@ -11,11 +11,13 @@ rm -rf $HOME/.config/nvim/
 rm -rf $HOME/.vim
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.bash_profile
+rm -rf $HOME/.bash_aliases
 
 # Copy conf files (symlinks)
 # $CPY $PWD/zsh/zshrc $HOME/.zshrc
 $CPY $PWD/bashrc $HOME/.bashrc
 $CPY $PWD/bash_profile $HOME/.bash_profile
+$CPY $PWD/bash_aliases $HOME/.bash_aliases
 $CPY $PWD/vimrc $HOME/.vimrc
 $CPY $PWD/gitconfig $HOME/.gitconfig
 
