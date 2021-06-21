@@ -12,12 +12,14 @@ rm -rf $HOME/.vim
 rm -rf $HOME/.bashrc
 rm -rf $HOME/.bash_profile
 rm -rf $HOME/.bash_aliases
+rm -rf $HOME/.python_path
 
 # Copy conf files (symlinks)
 # $CPY $PWD/zsh/zshrc $HOME/.zshrc
 $CPY $PWD/bashrc $HOME/.bashrc
 $CPY $PWD/bash_profile $HOME/.bash_profile
 $CPY $PWD/bash_aliases $HOME/.bash_aliases
+$CPY $PWD/python_path $HOME/.python_path
 $CPY $PWD/vimrc $HOME/.vimrc
 $CPY $PWD/gitconfig $HOME/.gitconfig
 

@@ -14,7 +14,7 @@ alias egrep='egrep --color=auto'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 
-NEOVIM_PATH=`which nvim`
+NEOVIM_PATH=`which nvim > /dev/null`
 if [ -z "$NEOVIM_PATH" ];
 then
 	alias vim='nvim'
