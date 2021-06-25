@@ -129,8 +129,8 @@ set relativenumber
 au FileType python setlocal formatprg=autopep8\ -
 
 " tabs and spaces
-au BufRead,BufNewFile *.py,*.pyw set expandtab
-au BufRead,BufNewFile *.py,*.pyw set shiftwidth=4
+au BufRead,BufNewFile *.py,*.pyw,*.sql set expandtab
+au BufRead,BufNewFile *.py,*.pyw,*.sql set shiftwidth=4
 
 " statusline
 set laststatus=2
