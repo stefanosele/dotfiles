@@ -75,11 +75,16 @@ imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " ale linting properties
 let g:ale_linters = {
-           \   'python': ['pylint', 'mypy'],
+           \   'python': ['flake8', 'mypy', 'pydocstyle'],
            \}
-let g:ale_python_pylint_options = '--max-line-length 100' " --rcfile $HOME/my_code/main/Build_System/linting/pylint.cfg'
-" " let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint-extra-rules-for-production-code.cfg'
+let g:ale_python_flake8_options = '--max-line-length=100 --select=E,W,F'
 let g:ale_python_mypy_options = '--ignore-missing-imports'
+let g:ale_fixers = {
+           \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
+           \}
+let g:ale_fix_on_save = 1
+let g:ale_python_black_options = '-t py36 -l 100'
+let g:ale_python_isort_options = '--atomic -l 100 --trailing-comma --remove-redundant-aliases --multi-line 3'
 " 
 " nnoremap <leader>pp :ALEToggle <bar> let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint.cfg' <bar> ALEToggle<CR>
 " nnoremap <leader>pr :ALEToggle <bar> let g:ale_python_pylint_options = '--max-line-length 100 --rcfile $HOME/my_code/main/Build_System/linting/pylint-extra-rules-for-production-code.cfg' <bar> ALEToggle<CR>
@@ -124,9 +129,6 @@ set incsearch
 " display current position
 set ruler
 set relativenumber
-
-" autopep8
-au FileType python setlocal formatprg=autopep8\ -
 
 " tabs and spaces
 au BufRead,BufNewFile *.py,*.pyw,*.sql set expandtab

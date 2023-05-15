@@ -1,9 +1,12 @@
 unset PYTHONPATH
 export PYTHONPATH
-for i in `ls ~/code/src | grep -v "GPflow"`; do
+for i in `ls ~/code/src | grep -v "GPflow" | grep -v "markovflow" | grep -v "bayesian_benchmarks" | grep -v "orthogonal-additive-gaussian-process" | grep -v "GPJax"`; do
   PYTHONPATH="$HOME/code/src/$i/src:$PYTHONPATH"
 done
-PYTHONPATH="$HOME/code/src/GPflow:$PYTHONPATH"
+PYTHONPATH="$HOME/code/src/GPflow:$HOME/code/src/markovflow:$PYTHONPATH"
+PYTHONPATH="$HOME/code/src/bayesian_benchmarks:$PYTHONPATH"
+PYTHONPATH="$HOME/code/src/orthogonal-additive-gaussian-processes:$PYTHONPATH"
+PYTHONPATH="$HOME/code/src/GPJax:$PYTHONPATH"
 # export PYTHONPATH
 # # add PIO modules to PYTHONPATH
 # PYTHONPATH=""
